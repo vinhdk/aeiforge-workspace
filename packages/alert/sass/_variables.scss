@@ -1,0 +1,32 @@
+$alert-variables: (
+  neutral: (
+    bg: var(--ae-color-primary-pm-o16),
+    border: var(--ae-color-primary-pm-700),
+    icon: var(--ae-color-primary-pm-400),
+    title: var(--ae-color-primary-pm-300),
+  ),
+  warning: (
+    bg: var(--ae-color-primary-wn-o16),
+    border: var(--ae-color-primary-wn-700),
+    icon: var(--ae-color-primary-wn-600),
+    title: var(--ae-color-primary-wn-500),
+  ),
+  error: (
+    bg: var(--ae-color-primary-er-o16),
+    border: var(--ae-color-primary-er-700),
+    icon: var(--ae-color-primary-er-600),
+    title: var(--ae-color-primary-er-500),
+  ),
+  success: (
+    bg: var(--ae-color-primary-sc-o16),
+    border: var(--ae-color-primary-sc-700),
+    icon: var(--ae-color-primary-sc-700),
+    title: var(--ae-color-primary-sc-600),
+  ),
+  info: (
+    bg: var(--ae-color-primary-fg-o16),
+    border: var(--ae-color-primary-fg-700),
+    icon: var(--ae-color-primary-fg-400),
+    title: var(--ae-color-primary-fg-50),
+  )
+)

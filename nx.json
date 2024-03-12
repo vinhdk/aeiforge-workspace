@@ -19,6 +19,11 @@
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
+    },
+    "@nx/angular:package": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     }
   },
   "plugins": [
@@ -41,7 +46,18 @@
       "linter": "eslint",
       "style": "scss",
       "unitTestRunner": "jest"
+    },
+    "@nx/angular:library": {
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nx/angular:component": {
+      "style": "scss"
     }
+  },
+  "workspaceLayout": {
+    "libsDir": "packages",
+    "appsDir": "apps"
   },
   "nxCloudAccessToken": "ODg5NjQyOTctMTM0Yy00MzE0LTlhZWUtMGM4Nzk5MDM4ODIzfHJlYWQtd3JpdGU="
 }

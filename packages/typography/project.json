@@ -1,0 +1,26 @@
+{
+  "name": "typography",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/typography/src",
+  "prefix": "ae",
+  "tags": ["aeiforge", "workspace", "typography"],
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "packages/typography/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "packages/typography/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "packages/typography/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    }
+  }
+}

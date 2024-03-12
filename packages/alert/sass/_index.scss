@@ -1,0 +1,87 @@
+@use "variables";
+@use "@aeiforge-workspace/typography/sass" as typography;
+
+@mixin setup-alert() {
+  .ae-alert {
+
+    &-host {
+      --ae-alert-host-gap: 8px;
+      display: flex;
+      flex-direction: column;
+      row-gap: var(--ae-alert-host-gap);
+    }
+
+    //#region Properties
+    @include _setup-color(info);
+    display: flex;
+    padding: 12px 16px;
+    column-gap: 12px;
+    border-radius: 2px;
+    background: var(--ae-alert-bg-color);
+    border: 1px solid var(--ae-alert-border-color);
+    width: min(100vw, 500px);
+    //#endregion
+
+    //#region Children
+    > main {
+      display: flex;
+      flex-direction: column;
+      row-gap: 20px;
+      flex: 1 1 0;
+    }
+    > i {
+      color: var(--ae-alert-icon-color);
+
+      &:first-child {
+        font-size: 24px;
+      }
+
+      &:last-child {
+        font-size: 20px;
+        margin-top: 2px;
+      }
+    }
+    &__information {
+      display: flex;
+      flex-direction: column;
+      row-gap: 8px;
+
+      > label {
+        @include typography.use-work-sans(b3, 600);
+        color: var(--ae-alert-title-color);
+      }
+
+      p {
+        @include typography.use-work-sans(b4, 600);
+        color: var(--ae-color-primary-fg-50);
+      }
+    }
+    //#endregion
+
+    //#region State
+    &--neutral {
+      @include _setup-color(neutral);
+    }
+    &--warning {
+      @include _setup-color(warning);
+    }
+    &--error {
+      @include _setup-color(error);
+    }
+    &--success {
+      @include _setup-color(success);
+    }
+    &--info {
+      @include _setup-color(info);
+    }
+    //#endregion
+  }
+}
+
+@mixin _setup-color($key) {
+  $color: map-get(variables.$alert-variables, $key);
+  --ae-alert-bg-color: #{map-get($color, bg)};
+  --ae-alert-border-color: #{map-get($color, border)};
+  --ae-alert-icon-color: #{map-get($color, icon)};
+  --ae-alert-title-color: #{map-get($color, title)};
+}

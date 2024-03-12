@@ -1,1 +1,18 @@
+@use "tailwindcss/tailwind";
+@use "@angular/cdk/overlay-prebuilt";
+@use "@fontsource/work-sans";
+@use "@aeiforge-workspace/icon/sass" as icon;
+@use "@aeiforge-workspace/typography/sass" as typography;
+@use "@aeiforge-workspace/palette/sass" as palette;
+@use "@aeiforge-workspace/resolution/sass" as resolution;
+@use "@aeiforge-workspace/alert/sass" as alert;
 /* You can add global styles to this file, and also import other style files */
+:root, ::before, ::after {
+  @include palette.setup-palette-variables();
+}
+
+@include alert.setup-alert();
+
+body {
+  @apply bg-primary-bg-900;
+}

@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@aeiforge-workspace/alert": ["packages/alert/src/index.ts"],
+      "@aeiforge-workspace/application": ["packages/application/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

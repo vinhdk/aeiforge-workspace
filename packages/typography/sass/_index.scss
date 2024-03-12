@@ -1,0 +1,23 @@
+@use "variables";
+
+@mixin use-work-sans($key, $weight: 400) {
+  $font: map-get(variables.$aeiforge-work-sans-keys, $key);
+
+  @if ($font == null) {
+    @error "Invalid font key: #{$key}";
+  }
+
+  font-family: #{variables.$aeiforge-work-sans-family};
+  font-weight: $weight;
+  font-size: map-get($font, font-size);
+  line-height: map-get($font, line-height);
+}
+
+@mixin setup-typography() {
+  @each $key, $value in variables.$aeiforge-work-sans-keys {
+    $font-size: map-get($value, font-size);
+    $line-height: map-get($value, line-height);
+    --ae-typography-#{$key}-font-size: #{$font-size};
+    --ae-typography-#{$key}-line-height: #{$line-height};
+  }
+}

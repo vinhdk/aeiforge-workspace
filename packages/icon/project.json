@@ -1,0 +1,26 @@
+{
+  "name": "icon",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/icon/src",
+  "prefix": "ae",
+  "tags": ["aeiforge", "workspace", "icon"],
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "packages/icon/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "packages/icon/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "packages/icon/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    }
+  }
+}

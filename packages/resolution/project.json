@@ -1,0 +1,26 @@
+{
+  "name": "resolution",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/resolution/src",
+  "prefix": "ae",
+  "tags": ["aeiforge", "workspace", "resolution"],
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "packages/resolution/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "packages/resolution/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "packages/resolution/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    }
+  }
+}

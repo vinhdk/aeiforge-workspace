@@ -1,0 +1,26 @@
+{
+  "name": "palette",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/palette/src",
+  "prefix": "ae",
+  "tags": ["aeiforge", "workspace", "palette"],
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "packages/palette/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "packages/palette/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "packages/palette/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    }
+  }
+}
