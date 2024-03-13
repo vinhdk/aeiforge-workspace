@@ -85,6 +85,7 @@ export class AlertComponent implements OnInit {
   }
 
   public close(): void {
+    this.closeClick.emit();
     this.heightCollapseAnimation.set({
       ...this.heightCollapseAnimation(),
       value: 'leave',
@@ -109,8 +110,8 @@ export class AlertComponent implements OnInit {
       .pipe(
         takeUntil(fromEvent(this.elementRef.nativeElement, 'mouseenter')),
         repeat({delay: () => fromEvent(this.elementRef.nativeElement, 'mouseleave')}),
-        takeUntil(this.afterClosed.asObservable()),
-        tap(() => this.close())
+        takeUntil(this.closeClick.asObservable()),
+        tap(() => this.close()),
       )
       .subscribe();
   }

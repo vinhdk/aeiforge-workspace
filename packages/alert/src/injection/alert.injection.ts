@@ -101,16 +101,21 @@ export const { injectAlertService } = (() => {
 
       const instance = componentRef.instance;
 
-      instance.afterClosed
+      instance.closeClick
         .pipe(
           take(1),
           tap(() => {
             this.applicationService.detachHostView(componentRef);
-            this.applicationService.removeFrom(element, container);
             componentRef.destroy();
           })
-        )
-        .subscribe();
+        ).subscribe();
+
+      instance.afterClosed.pipe(
+        take(1),
+        tap(() => {
+          this.applicationService.removeFrom(element, container);
+        })
+      ).subscribe();
 
       return {
         afterClosed: instance.afterClosed.asObservable(),
