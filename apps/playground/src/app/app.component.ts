@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IconDirective } from '@aeiforge-workspace/icon';
-import { injectAlertService } from '@aeiforge-workspace/alert';
+import { AlertHorizontalPositions, AlertVerticalPositions, injectAlertService } from '@aeiforge-workspace/alert';
 
 @Component({
   standalone: true,
@@ -19,6 +19,8 @@ export class AppComponent {
       title: 'Title',
       options: {
         duration: 3000,
+        horizontalPosition: AlertHorizontalPositions.LEFT,
+        verticalPosition: AlertVerticalPositions.BOTTOM,
       }
     });
   }

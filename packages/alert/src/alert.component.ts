@@ -16,6 +16,7 @@ import { AlertContentComponent } from './alert-content.component';
 import { fadeIn, heightCollapse, slideIn } from './animations/alert.animation';
 import { IAlertAnimation } from './interfaces/alert-animation.interface';
 import { fromEvent, repeat, takeUntil, tap, timer } from 'rxjs';
+import { AlertHorizontalPositions } from './enums/alert-position.enum';
 
 @Component({
   selector: 'ae-alert',
@@ -68,7 +69,7 @@ export class AlertComponent implements OnInit {
   public readonly config = inject(ALERT_CONFIG);
 
   public readonly fadeInAnimation = signal(this._generateAnimation('enter'));
-  public readonly slideInAnimation = signal(this._generateAnimation('right'));
+  public readonly slideInAnimation = signal(this._generateAnimation(this.config.options.horizontalPosition || 'right'));
   public readonly heightCollapseAnimation = signal(this._generateAnimation('enter'));
   public readonly elementRef = inject(ElementRef);
 
