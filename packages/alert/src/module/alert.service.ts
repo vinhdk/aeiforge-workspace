@@ -18,7 +18,6 @@ import { switchMap, take, tap, timer } from 'rxjs';
   providedIn: 'root'
 })
 export class AlertService {
-  public static readonly ALERT_ANIMATION_DURATION = 300;
   protected readonly _applicationService = inject(ApplicationService);
   protected readonly _overlay = inject(Overlay);
   protected readonly _document = inject(DOCUMENT);
@@ -90,9 +89,20 @@ export class AlertService {
         take(1),
         tap(() => timeout && clearTimeout(timeout)),
         switchMap(() => {
-          //TODO: resolve animation close
+          instance.heightCollapseAnimation.set({
+            ...instance.heightCollapseAnimation(),
+            value: 'leave',
+          });
+          instance.slideInAnimation.set({
+            ...instance.slideInAnimation(),
+            value: '*'
+          });
+          instance.fadeInAnimation.set({
+            ...instance.fadeInAnimation(),
+            value: 'leave'
+          });
 
-          return timer(AlertService.ALERT_ANIMATION_DURATION).pipe(
+          return timer(AlertComponent.ALERT_ANIMATION_DURATION).pipe(
             tap(() => {
               this._applicationService.detachHostView(componentRef);
               this._applicationService.removeFrom(element, container);
@@ -146,12 +156,14 @@ export class AlertService {
     return `alert-container-${horizontalPosition}-${verticalPosition}`;
   }
 
-  protected _getOverlayRef({
-                             horizontalPosition,
-                             verticalPosition,
-                             verticalOffset,
-                             horizontalOffset
-                           }: IAlertOption): OverlayRef {
+  protected _getOverlayRef(
+    {
+      horizontalPosition,
+      verticalPosition,
+      verticalOffset,
+      horizontalOffset
+    }: IAlertOption
+  ): OverlayRef {
     const overlayConfig = new OverlayConfig();
 
     const positionStrategy = this._overlay.position().global();

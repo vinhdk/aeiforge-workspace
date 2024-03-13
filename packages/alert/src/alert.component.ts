@@ -1,8 +1,18 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, Output, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Output,
+  signal,
+  ViewEncapsulation
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ALERT_CONFIG } from './tokens/alert-config.token';
 import { IconDirective } from '@aeiforge-workspace/icon';
 import { AlertContentComponent } from './alert-content.component';
+import { fadeIn, heightCollapse, slideIn } from './animations/alert.animation';
+import { IAlertAnimation } from './interfaces/alert-animation.interface';
 @Component({
   selector: 'ae-alert',
   standalone: true,
@@ -30,9 +40,16 @@ import { AlertContentComponent } from './alert-content.component';
     </article>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  animations: [fadeIn, slideIn, heightCollapse],
+  host: {
+    '[@fadeIn]': 'fadeInAnimation()',
+    '[@slideIn]': 'slideInAnimation()',
+    '[@heightCollapse]': 'heightCollapseAnimation()',
+  }
 })
 export class AlertComponent {
+  public static readonly ALERT_ANIMATION_DURATION = 300;
   @Output()
   public readonly closeClick = new EventEmitter<Event>();
 
@@ -49,4 +66,16 @@ export class AlertComponent {
   public readonly opened = new EventEmitter<Event>();
 
   public readonly config = inject(ALERT_CONFIG);
+
+  public readonly fadeInAnimation = signal(this.generateAnimation('enter'));
+  public readonly slideInAnimation = signal(this.generateAnimation('right'));
+  public readonly heightCollapseAnimation = signal(this.generateAnimation('enter'));
+  protected generateAnimation(value: string): IAlertAnimation {
+    return {
+      value,
+      params: {
+        duration: AlertComponent.ALERT_ANIMATION_DURATION,
+      },
+    };
+  }
 }

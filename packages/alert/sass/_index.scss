@@ -39,6 +39,10 @@
       &:last-child {
         font-size: 20px;
         margin-top: 2px;
+
+        &:hover {
+          color: var(--ae-color-primary-er-500);
+        }
       }
     }
     &__information {
