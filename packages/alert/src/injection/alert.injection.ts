@@ -1,4 +1,4 @@
-import { inject, Injectable, InjectionToken, InjectOptions } from '@angular/core';
+import { assertInInjectionContext, inject, Injectable, InjectionToken, InjectOptions } from '@angular/core';
 import { ApplicationService } from '@aeiforge-workspace/application';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { IAlertRef } from '../interfaces/alert-ref.interface';
@@ -204,10 +204,11 @@ export const { injectAlertService } = (() => {
     }
   }
 
-  const ALERT_SERVICE_TOKEN = new InjectionToken<AlertService>('ALERT_SERVICE_TOKEN');
+  // const ALERT_SERVICE_TOKEN = new InjectionToken<AlertService>('ALERT_SERVICE_TOKEN');
 
   const injectAlertService = (option: InjectOptions = {}) => {
-    const token = inject(ALERT_SERVICE_TOKEN, option);
+    assertInInjectionContext(injectAlertService);
+    const token = inject(AlertService, option);
     if (!token) throw 'Please provide the provideAlertToken';
     return token;
   };

@@ -6,23 +6,23 @@ settings:
 
 dependencies:
   '@aeiforge-workspace/alert':
-    specifier: file:dist/packages/alert
-    version: file:dist/packages/alert(@angular/common@17.1.3)(@angular/core@17.1.3)
+    specifier: link:dist/packages/alert
+    version: link:dist/packages/alert
   '@aeiforge-workspace/application':
-    specifier: file:dist/packages/application
-    version: file:dist/packages/application(@angular/common@17.1.3)(@angular/core@17.1.3)
+    specifier: link:dist/packages/application
+    version: link:dist/packages/application
   '@aeiforge-workspace/icon':
-    specifier: file:dist/packages/icon
-    version: file:dist/packages/icon(@angular/common@17.1.3)(@angular/core@17.1.3)
+    specifier: link:dist/packages/icon
+    version: link:dist/packages/icon
   '@aeiforge-workspace/palette':
-    specifier: file:dist/packages/palette
-    version: file:dist/packages/palette(@angular/common@17.1.3)(@angular/core@17.1.3)
+    specifier: link:dist/packages/palette
+    version: link:dist/packages/palette
   '@aeiforge-workspace/resolution':
-    specifier: file:dist/packages/resolution
-    version: file:dist/packages/resolution(@angular/common@17.1.3)(@angular/core@17.1.3)
+    specifier: link:dist/packages/resolution
+    version: link:dist/packages/resolution
   '@aeiforge-workspace/typography':
-    specifier: file:dist/packages/typography
-    version: file:dist/packages/typography(@angular/common@17.1.3)(@angular/core@17.1.3)
+    specifier: link:dist/packages/typography
+    version: link:dist/packages/typography
   '@angular/animations':
     specifier: ~17.1.0
     version: 17.1.3(@angular/core@17.1.3)
@@ -74,6 +74,9 @@ dependencies:
   tslib:
     specifier: ^2.3.0
     version: 2.6.2
+  typography:
+    specifier: link:dist/packages/typography
+    version: link:dist/packages/typography
   zone.js:
     specifier: ~0.14.3
     version: 0.14.4
@@ -12846,81 +12849,3 @@ packages:
     resolution: {integrity: sha512-NtTUvIlNELez7Q1DzKVIFZBzNb646boQMgpATo9z3Ftuu/gWvzxCW7jdjcUDoRGxRikrhVHB/zLXh1hxeJawvw==}
     dependencies:
       tslib: 2.6.2
-
-  file:dist/packages/alert(@angular/common@17.1.3)(@angular/core@17.1.3):
-    resolution: {directory: dist/packages/alert, type: directory}
-    id: file:dist/packages/alert
-    name: '@aeiforge-workspace/alert'
-    peerDependencies:
-      '@angular/common': ^17.1.0
-      '@angular/core': ^17.1.0
-    dependencies:
-      '@angular/common': 17.1.3(@angular/core@17.1.3)(rxjs@7.8.1)
-      '@angular/core': 17.1.3(rxjs@7.8.1)(zone.js@0.14.4)
-      tslib: 2.6.2
-    dev: false
-
-  file:dist/packages/application(@angular/common@17.1.3)(@angular/core@17.1.3):
-    resolution: {directory: dist/packages/application, type: directory}
-    id: file:dist/packages/application
-    name: '@aeiforge-workspace/application'
-    peerDependencies:
-      '@angular/common': ^17.1.0
-      '@angular/core': ^17.1.0
-    dependencies:
-      '@angular/common': 17.1.3(@angular/core@17.1.3)(rxjs@7.8.1)
-      '@angular/core': 17.1.3(rxjs@7.8.1)(zone.js@0.14.4)
-      tslib: 2.6.2
-    dev: false
-
-  file:dist/packages/icon(@angular/common@17.1.3)(@angular/core@17.1.3):
-    resolution: {directory: dist/packages/icon, type: directory}
-    id: file:dist/packages/icon
-    name: '@aeiforge-workspace/icon'
-    peerDependencies:
-      '@angular/common': ^17.1.0
-      '@angular/core': ^17.1.0
-    dependencies:
-      '@angular/common': 17.1.3(@angular/core@17.1.3)(rxjs@7.8.1)
-      '@angular/core': 17.1.3(rxjs@7.8.1)(zone.js@0.14.4)
-      tslib: 2.6.2
-    dev: false
-
-  file:dist/packages/palette(@angular/common@17.1.3)(@angular/core@17.1.3):
-    resolution: {directory: dist/packages/palette, type: directory}
-    id: file:dist/packages/palette
-    name: '@aeiforge-workspace/palette'
-    peerDependencies:
-      '@angular/common': ^17.1.0
-      '@angular/core': ^17.1.0
-    dependencies:
-      '@angular/common': 17.1.3(@angular/core@17.1.3)(rxjs@7.8.1)
-      '@angular/core': 17.1.3(rxjs@7.8.1)(zone.js@0.14.4)
-      tslib: 2.6.2
-    dev: false
-
-  file:dist/packages/resolution(@angular/common@17.1.3)(@angular/core@17.1.3):
-    resolution: {directory: dist/packages/resolution, type: directory}
-    id: file:dist/packages/resolution
-    name: '@aeiforge-workspace/resolution'
-    peerDependencies:
-      '@angular/common': ^17.1.0
-      '@angular/core': ^17.1.0
-    dependencies:
-      '@angular/common': 17.1.3(@angular/core@17.1.3)(rxjs@7.8.1)
-      '@angular/core': 17.1.3(rxjs@7.8.1)(zone.js@0.14.4)
-      tslib: 2.6.2
-    dev: false
-
-  file:dist/packages/typography(@angular/common@17.1.3)(@angular/core@17.1.3):
-    resolution: {directory: dist/packages/typography, type: directory}
-    id: file:dist/packages/typography
-    name: '@aeiforge-workspace/typography'
-    peerDependencies:
-      '@angular/common': ^17.1.0
-      '@angular/core': ^17.1.0
-    dependencies:
-      '@angular/common': 17.1.3(@angular/core@17.1.3)(rxjs@7.8.1)
-      '@angular/core': 17.1.3(rxjs@7.8.1)(zone.js@0.14.4)
-      tslib: 2.6.2
-    dev: false

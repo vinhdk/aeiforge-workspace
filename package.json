@@ -2,15 +2,23 @@
   "name": "@aeiforge-workspace/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build:all": "pnpm run build:typography && pnpm run build:palette && pnpm run build:resolution && pnpm run build:icon && pnpm run build:application && pnpm run build:alert",
+    "build:alert": "rm -rf node_modules/@aeiforge-workspace/alert && rm -rf dist/packages/alert && pnpx nx build alert && pnpm install dist/packages/alert",
+    "build:icon": "rm -rf node_modules/@aeiforge-workspace/icon && rm -rf dist/packages/icon && pnpx nx build icon && pnpm install dist/packages/icon",
+    "build:application": "rm -rf node_modules/@aeiforge-workspace/application && rm -rf dist/packages/application && pnpx nx build application && pnpm install dist/packages/application",
+    "build:typography": "rm -rf node_modules/@aeiforge-workspace/typography && rm -rf dist/packages/typography && pnpx nx build typography && pnpm install dist/packages/typography",
+    "build:palette": "rm -rf node_modules/@aeiforge-workspace/palette && rm -rf dist/packages/palette && pnpx nx build palette && pnpm install dist/packages/palette",
+    "build:resolution": "rm -rf node_modules/@aeiforge-workspace/resolution && rm -rf dist/packages/resolution && pnpx nx build resolution && pnpm install dist/packages/resolution"
+  },
   "private": true,
   "dependencies": {
-    "@aeiforge-workspace/icon": "file:dist/packages/icon",
-    "@aeiforge-workspace/palette": "file:dist/packages/palette",
-    "@aeiforge-workspace/resolution": "file:dist/packages/resolution",
-    "@aeiforge-workspace/typography": "file:dist/packages/typography",
-    "@aeiforge-workspace/alert": "file:dist/packages/alert",
-    "@aeiforge-workspace/application": "file:dist/packages/application",
+    "@aeiforge-workspace/alert": "link:dist/packages/alert",
+    "@aeiforge-workspace/application": "link:dist/packages/application",
+    "@aeiforge-workspace/icon": "link:dist/packages/icon",
+    "@aeiforge-workspace/palette": "link:dist/packages/palette",
+    "@aeiforge-workspace/resolution": "link:dist/packages/resolution",
+    "@aeiforge-workspace/typography": "link:dist/packages/typography",
     "@angular/animations": "~17.1.0",
     "@angular/cdk": "17.1.0",
     "@angular/common": "~17.1.0",
@@ -28,6 +36,7 @@
     "postcss-preset-env": "^9.5.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "typography": "link:dist/packages/typography",
     "zone.js": "~0.14.3"
   },
   "devDependencies": {
