@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IconDirective } from '@aeiforge-workspace/icon';
-import { AlertService } from '@aeiforge-workspace/alert';
+import { injectAlertService } from '@aeiforge-workspace/alert';
 
 @Component({
   standalone: true,
@@ -12,7 +12,7 @@ import { AlertService } from '@aeiforge-workspace/alert';
 })
 export class AppComponent {
   title = 'playground';
-  public readonly alertService = inject(AlertService);
+  readonly alertService = injectAlertService();
 
   public openAlert(): void {
     const ref = this.alertService.success('Hello, World!', {

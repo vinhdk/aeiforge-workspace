@@ -1,4 +1,5 @@
 export { AlertService } from './module/alert.service';
+export { injectAlertService } from './injection/alert.injection';
 export { AlertComponent } from './alert.component';
 export { AlertHostComponent } from './alert-host.component';
 export { AlertContentComponent } from './alert-content.component';
