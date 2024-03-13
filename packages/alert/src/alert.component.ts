@@ -1,8 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   EventEmitter,
   inject,
+  OnInit,
   Output,
   signal,
   ViewEncapsulation
@@ -13,6 +15,8 @@ import { IconDirective } from '@aeiforge-workspace/icon';
 import { AlertContentComponent } from './alert-content.component';
 import { fadeIn, heightCollapse, slideIn } from './animations/alert.animation';
 import { IAlertAnimation } from './interfaces/alert-animation.interface';
+import { fromEvent, repeat, takeUntil, tap, timer } from 'rxjs';
+
 @Component({
   selector: 'ae-alert',
   standalone: true,
@@ -35,7 +39,7 @@ import { IAlertAnimation } from './interfaces/alert-animation.interface';
       <i
         *ngIf="!config.options.hiddenCloseIcon"
         [aeIcon]="'filled-navigation-close'"
-        (click)="closeClick.emit()"
+        (click)="close()"
       ></i>
     </article>
   `,
@@ -46,31 +50,72 @@ import { IAlertAnimation } from './interfaces/alert-animation.interface';
     '[@fadeIn]': 'fadeInAnimation()',
     '[@slideIn]': 'slideInAnimation()',
     '[@heightCollapse]': 'heightCollapseAnimation()',
+    '(@slideIn.done)': 'animationDone()',
   }
 })
-export class AlertComponent {
+export class AlertComponent implements OnInit {
   public static readonly ALERT_ANIMATION_DURATION = 300;
+
   @Output()
   public readonly closeClick = new EventEmitter<Event>();
 
   @Output()
-  public readonly afterAnimationStart = new EventEmitter<Event>();
+  public readonly afterClosed = new EventEmitter<Event>();
 
   @Output()
-  public readonly afterAnimationEnd = new EventEmitter<Event>();
-
-  @Output()
-  public readonly closed = new EventEmitter<Event>();
-
-  @Output()
-  public readonly opened = new EventEmitter<Event>();
+  public readonly afterOpened = new EventEmitter<Event>();
 
   public readonly config = inject(ALERT_CONFIG);
 
-  public readonly fadeInAnimation = signal(this.generateAnimation('enter'));
-  public readonly slideInAnimation = signal(this.generateAnimation('right'));
-  public readonly heightCollapseAnimation = signal(this.generateAnimation('enter'));
-  protected generateAnimation(value: string): IAlertAnimation {
+  public readonly fadeInAnimation = signal(this._generateAnimation('enter'));
+  public readonly slideInAnimation = signal(this._generateAnimation('right'));
+  public readonly heightCollapseAnimation = signal(this._generateAnimation('enter'));
+  public readonly elementRef = inject(ElementRef);
+
+  public ngOnInit(): void {
+    this._autoClose();
+  }
+
+  public animationDone(): void {
+    if (this.fadeInAnimation().value === 'leave') {
+      this.afterClosed.emit();
+    } else {
+      this.afterOpened.emit();
+    }
+  }
+
+  public close(): void {
+    this.heightCollapseAnimation.set({
+      ...this.heightCollapseAnimation(),
+      value: 'leave',
+    });
+    this.slideInAnimation.set({
+      ...this.slideInAnimation(),
+      value: '*'
+    });
+    this.fadeInAnimation.set({
+      ...this.fadeInAnimation(),
+      value: 'leave'
+    });
+  }
+
+  protected _autoClose(): void {
+    const duration = this.config.options.duration;
+    if (!duration) {
+      return;
+    }
+
+    timer(duration)
+      .pipe(
+        takeUntil(fromEvent(this.elementRef.nativeElement, 'mouseenter')),
+        repeat({delay: () => fromEvent(this.elementRef.nativeElement, 'mouseleave')}),
+        takeUntil(this.afterClosed.asObservable()),
+        tap(() => this.close())
+      )
+      .subscribe();
+  }
+
+  protected _generateAnimation(value: string): IAlertAnimation {
     return {
       value,
       params: {

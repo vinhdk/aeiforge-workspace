@@ -12,7 +12,7 @@ import { provideAlertDefaultConfig } from '../providers/alert-default-config.pro
 import { IAlertOption } from '../interfaces/alert-option.interface';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { AlertHostComponent } from '../alert-host.component';
-import { switchMap, take, tap, timer } from 'rxjs';
+import { take, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -80,53 +80,26 @@ export class AlertService {
 
     this._applicationService.appendTo(element, container);
 
+    componentRef.changeDetectorRef.detectChanges();
+
     const instance = componentRef.instance;
 
-    let timeout: ReturnType<typeof setTimeout>;
-
-    instance.closeClick
+    instance.afterClosed
       .pipe(
         take(1),
-        tap(() => timeout && clearTimeout(timeout)),
-        switchMap(() => {
-          instance.heightCollapseAnimation.set({
-            ...instance.heightCollapseAnimation(),
-            value: 'leave',
-          });
-          instance.slideInAnimation.set({
-            ...instance.slideInAnimation(),
-            value: '*'
-          });
-          instance.fadeInAnimation.set({
-            ...instance.fadeInAnimation(),
-            value: 'leave'
-          });
-
-          return timer(AlertComponent.ALERT_ANIMATION_DURATION).pipe(
-            tap(() => {
-              this._applicationService.detachHostView(componentRef);
-              this._applicationService.removeFrom(element, container);
-              componentRef.destroy();
-            })
-          );
+        tap(() => {
+          this._applicationService.detachHostView(componentRef);
+          this._applicationService.removeFrom(element, container);
+          componentRef.destroy();
         })
       ).subscribe();
 
-    if (options.duration) {
-      timeout = setTimeout(() => {
-        instance.closeClick.emit();
-        clearTimeout(timeout);
-      }, options.duration);
-    }
-
     return {
-      afterClosed: instance.afterAnimationEnd.asObservable(),
-      afterOpened: instance.afterAnimationStart.asObservable(),
+      afterClosed: instance.afterClosed.asObservable(),
+      afterOpened: instance.afterOpened.asObservable(),
       closeClicked: instance.closeClick.asObservable(),
-      closed: instance.closed.asObservable(),
-      opened: instance.opened.asObservable(),
       close: () => {
-        instance.closeClick.emit();
+        instance.close();
       }
     };
   }
